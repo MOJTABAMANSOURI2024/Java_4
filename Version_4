@@ -1,0 +1,73 @@
+import java.util.Scanner;
+
+class Employee {
+    String firstName;
+    String lastName;
+    String hireDate; // تاریخ استخدام به صورت رشته
+    String position;
+    double salary;
+
+    public Employee(String firstName, String lastName, String hireDate, String position, double salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.hireDate = hireDate;
+        this.position = position;
+        this.salary = salary;
+    }
+}
+
+public class EmployeeManagement {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Employee[] employees = new Employee[10];
+
+        // دریافت مشخصات 10 کارمند
+        for (int i = 0; i < 10; i++) {
+            System.out.println("کارمند " + (i + 1) + ":");
+            System.out.print("نام: ");
+            String firstName = scanner.nextLine();
+            System.out.print("نام خانوادگی: ");
+            String lastName = scanner.nextLine();
+            System.out.print("تاریخ استخدام (به فرمت YYYY/MM/DD): ");
+            String hireDate = scanner.nextLine();
+            System.out.print("سمت: ");
+            String position = scanner.nextLine();
+            System.out.print("حقوق: ");
+            double salary = scanner.nextDouble();
+            scanner.nextLine(); // برای خواندن خط جدید بعد از عدد
+
+            employees[i] = new Employee(firstName, lastName, hireDate, position, salary);
+        }
+
+        System.out.println("\nکارمندان با تاریخ استخدام 1372:");
+        for (Employee emp : employees) {
+            if (emp.hireDate.startsWith("1372")) {
+                System.out.println(emp.firstName + " " + emp.lastName);
+            }
+        }
+
+        System.out.println("\nکارمندان با سمت کارشناس IT و معاون مالی:");
+        for (Employee emp : employees) {
+            if (emp.position.equalsIgnoreCase("کارشناس it") || emp.position.equalsIgnoreCase("معاون مالی")) {
+                System.out.println(emp.firstName + " " + emp.lastName);
+            }
+        }
+
+        System.out.println("\nکارمندان با نام خانوادگی کاظمی:");
+        for (Employee emp : employees) {
+            if (emp.lastName.equalsIgnoreCase("کاظمی")) {
+                System.out.println(emp.firstName + " " + emp.lastName);
+            }
+        }
+
+        System.out.println("\nکارمندان با حقوق بالای 23 میلیون و 700:");
+        for (Employee emp : employees) {
+            if (emp.salary > 23700000) {
+                double deductedSalary = emp.salary * 0.93; // کسر 7 درصد
+                System.out.println(emp.firstName + " " + emp.lastName + " - حقوق بعد از کسر: " + deductedSalary);
+            }
+        }
+
+        scanner.close();
+    }
+}
